@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Sistemas Distribuídos - Aula05</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<p>
+						Universidade do Estado de Mato Grosso <br />
+						<em>Campus</em> Cáceres <br />
+						Faculdade de Ciências Exatas <br/>
+						Bacharelado em Ciência da Computação
+					</p>
+					<br />
+					<h2>Sistemas Distribuídos</h2>
+					<h4>Capítulo 4 - Comunicação</h4>
+					<br />
+					<p>
+						Leonardo Luan Martins da Silva <br />
+						29 de março de 2019
+					</p>
+				</section>
+
+				<section style="text-align: left; font-size: 90%">
+					<h3>Fundamentos</h3>
+					<p>Protocolos em Camadas</p>
+					<section>
+						<ul>
+							<li style='margin-bottom: 25px'>Devido à ausência de memória compartilhada, toda comunicação em sistemas distribuídos é baseada no envio e recebimento de mensagens.</li>
+							<li class="fragment fade-in" style='margin-bottom: 25px'>Quando um processo A quer se comunicar com um processo B, primeiro ele deve montar uma mensagem em seu próprio espaço de endereço.</li>
+							<li class="fragment fade-in">Para enviar a mensagem, o processo A faz uma chamada de sistema (syscall) solicitando ao SO que envie a mensagem pela rede até B.</li>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%" data-transition="none">
+						<ul>
+							<li style='margin-bottom: 25px'>Vários acordos são necessários para que a comunicação tenha sucesso e responder questões como:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>Qual é a codificação dos dados?</li>
+								<li style='margin-bottom: 25px'>Qual é a voltagem de um bit?</li>
+								<li style='margin-bottom: 25px'>Como identificar o fim da mensagem?</li>
+								<li style='margin-bottom: 25px'>Como detectar se a mensagem foi danificada?</li>
+								<li>Qual é o comprimentos dos dados enviados?</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%" data-transition="none">
+						<ul>
+							<li style='margin-bottom: 25px'>Vários acordos são necessários para que a comunicação tenha sucesso e responder questões como:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>OSI (Open Systems Interconnection Reference Model)</li>
+								<ul>
+									<li style='margin-bottom: 25px'>Foi criado para padronizar um conjunto de regras para a comunicação entre sistemas</li>
+								</ul>
+								<li style='margin-bottom: 25px'>Essas regras são denominadas <strong>protocolos</strong>.</li>
+								<li>Se um grupo de computadores quiserem se comunicar, devem concordar em utilizar um protocolo.</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%" data-transition="none">
+						<ul>
+							<li style='margin-bottom: 25px'>Vários acordos são necessários para que a comunicação tenha sucesso e responder questões como:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>Existem dois tipos básicos de protocolos:</li>
+								<ul>
+									<li style='margin-bottom: 25px'>Protocolos Orientados a Conexão: antes de trocar dados, os comunicantes devem estabelecer uma conexão. Ex: TCP</li>
+									<li style='margin-bottom: 25px'>Protocolos sem Conexão: o remetente apenas transmite a primeira mensagem quando estiver pronta. Ex: UDP</li>
+								</ul>
+							</ul>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%" data-transition="none">
+						<ul>
+							<li style='margin-bottom: 25px'>Vários acordos são necessários para que a comunicação tenha sucesso e responder questões como:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>No modelo OSI, existem 7 camadas. Cada camada lida com um aspecto específico da comunicação.</li>
+								<li>No entanto, os protocolos desenvolvidos pela Internet, como o TCP/IP, são mais populares.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section style="text-align: left; font-size: 90%">
+					<h3>Fundamentos</h3>
+					<p>Tipos de comunicação</p>
+
+					<section>
+						<ul>
+							<li style='margin-bottom: 25px'>Middleware:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>Comunicação Persistente: a mensagem é armazenada pelo middleware durante o tempo que for necessário.</li>
+								<li>Comunicação Transiente: a mensagem é armazenada pelo middleware enquanto as aplicações comunicantes estiverem executando.</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section>
+						<ul>
+							<li style='margin-bottom: 25px'>Aplicação:</li>
+							<ul>
+								<li style='margin-bottom: 25px'>Comunicação Assíncrona: o remetente continua executando após enviar a mensagem.</li>
+								<li>Comunicação Síncrona: o remetente fica bloqueado após enviar a mensagem, até receber uma resposta.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section style="text-align: left; font-size: 90%">
+					<h3>RPC</h3>
+					<h4>Chamada de Procedimento Remoto</h4>
+					<section>
+						<ul>
+							<li style='margin-bottom: 25px'>Programas podem chamar procedimentos localizados em outra máquinas.</li>
+							<li style='margin-bottom: 25px'>Um processo na máquina A chama um pede para um processo B realizar um procedimento.</li>
+							<li style='margin-bottom: 25px'>O processo A fica bloqueado.</li>
+							<li style='margin-bottom: 25px'>A execução do procedimento ocorre em B.</li>
+							<li>B retorna para A o resultado da execução.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section style="text-align: left; font-size: 90%">
+					<h3>Comunicação orientada a Mensagem</h3>
+
+					<section>
+						<ul>
+							<li style='margin-bottom: 25px'>A comunicação por RPC adota a premissa de que o receptor está apto para atender a requisições.</li>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%">
+						<ul>
+							<li style='margin-bottom: 25px'>Transiente: terminal de comunicação de rede.</li>
+							<ul>
+								<li style='margin-bottom: 25px'>Um Socket é vinculado a um IP e um número de Porta</li>
+								<li style='margin-bottom: 25px'>O servidor passa a ouvir de um lado do socket, aceitando as mensagens que chegam no IP e Porta definidos</li>
+								<li>O cliente usa o endereço do servidor para fazer uma conexão e enviar dados.</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section style="text-align: left; font-size: 90%">
+						<ul>
+							<li style='margin-bottom: 25px'>Persistente: Middleware Orientado a Mensagem (MOM)</li>
+							<ul>
+								<li style='margin-bottom: 25px'>É um sistema de fila de mensagens</li>
+								<li style='margin-bottom: 25px'>Não exige que o remetente ou o receptor estejam ativos durante a transmissão</li>
+								<li style='margin-bottom: 25px'>O middleware age como gerenciador da fila de mensagens</li>
+								<li>Filas e Publish/Subscribe</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section style="text-align: center">
+					<h5>Lista IV</h5>
+					<p>Faça os seguintes exercícios:</p>
+					<ol style="text-align: left; font-size: 90%">
+						<li>O que é um protocolo de comunicação?</li>
+						<li>Explique a diferença entre protocolos orientados à conexão e protocolos não orientados à conexão.</li>
+						<li>Explique a diferença entre comunicação síncrona e assíncrona.</li>
+						<li>Explique a diferença entre comunicação transiente e persistente.</li>
+					</ol>
+					<br/>
+					<p><strong>Data de entrega</strong>: 01/04/2019</p>
+				</section>
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				center: false,
+				mouseWheel: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+			Reveal.configure({ slideNumber: 'c/t' });
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</body>
+</html>
